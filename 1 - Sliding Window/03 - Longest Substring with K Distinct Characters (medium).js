@@ -40,10 +40,10 @@ const longestSubstring = (k, string) => {
 
         while(Object.keys(dict).length > k){
             if(dict[string[windowStart]] === 1) delete dict[string[windowStart]];
-            else dict[string[windowStart]];
-
+            else dict[string[windowStart]]--;
             windowStart++;
         }
+        
         maxSubstr = Math.max(maxSubstr, (windowEnd - windowStart + 1));
     }
     if(maxSubstr >= 0) return maxSubstr;
