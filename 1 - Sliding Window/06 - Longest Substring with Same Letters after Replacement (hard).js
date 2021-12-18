@@ -19,34 +19,80 @@ Explanation: Replace the 'b' or 'd' with 'c' to have the longest repeating subst
 */
 
 /*
-Sliding window, since we're finding continous set within certain parameters
-Another way to frame this problem: what's the longest substring with k number of non-repeating characters in it
-Window should shrink when 
+validate arguments
+initialize maxSubStr, freq, windowStart
 
+loop through string, incrementing windowEnd each iteration
+    if rightChar not in freq, add it with value 1
+    else increment that value
 
-Return 0 if string or k isn't valid
-Loop through string, incrementing windowEnd
+    while length of freq > k + 1
+        if freq[windowStart] is 1, delete it
+        else decrement it
+        increment windowStart
+    
+    take the max of maxSubStr and the length of window
 
+return maxSubStr
 
 */
 
 const longestSubStr = (string, k) => {
-    let maxSubStr = -Infinity;
+    if(typeof string !== 'string' || k < 0) return -1;
+    if(!string.length) return 0;
+
+    const freq = {};
+    let maxSubStr = 0, windowStart = 0, maxFreq = 0, leftChar = '', rightChar = '';
+    for(let windowEnd = 0; windowEnd < string.length; windowEnd++){
+        rightChar = string[windowEnd];
+
+        if(!(rightChar in freq)) freq[rightChar] = 1;
+        else freq[rightChar]++;
+        maxFreq = Math.max(maxFreq, freq[rightChar])
+
+        if((windowEnd - windowStart + 1 - maxFreq) > k){
+            leftChar = string[windowStart]
+            freq[leftChar]--;
+            windowStart++;
+        }
+        freq
+        maxSubStr = Math.max(maxSubStr, windowEnd - windowStart + 1);
+    }
+
     return maxSubStr;
 }
 
-// easy cases
-console.log(longestSubStr('a', 1)) // 1
-console.log(longestSubStr('aba', 1)) // 3
-console.log(longestSubStr('aba', 2)) // 3
-console.log(longestSubStr('aba', 3)) // 3
+console.log(longestSubStr('aab', 1)); // 3
+console.log(longestSubStr('aba', 1)); // 3
+console.log(longestSubStr('abb', 1)); // 3
 
-// hard cases
-console.log(longestSubStr('aabcbccc', 1)) // 4
-console.log(longestSubStr('aabcbccc', 2)) // 6
-console.log(longestSubStr('aaababcc', 1)) // 4
-console.log(longestSubStr('aaababcc', 2)) // 6
+console.log(longestSubStr('aabaa', 1)); // 5
+console.log(longestSubStr('baaaa', 1)); // 5
+console.log(longestSubStr('aaaab', 1)); // 5
+console.log(longestSubStr('abbaa', 2)); // 5
+console.log(longestSubStr('bbaaa', 2)); // 5
+console.log(longestSubStr('aaabb', 2)); // 5
 
-// edge cases
-console.log(longestSubStr('aaabcbcc', -1)) // 0
-console.log(longestSubStr('aaa', 4)) // 3
+console.log(longestSubStr('aabaac', 2)); // 6
+console.log(longestSubStr('baaaac', 2)); // 6
+console.log(longestSubStr('aaaabc', 2)); // 6
+console.log(longestSubStr('abbaac', 2)); // 5
+console.log(longestSubStr('bbaaac', 2)); // 5
+console.log(longestSubStr('aaabbc', 2)); // 5
+
+console.log(longestSubStr('aabaacc', 2)); // 6
+console.log(longestSubStr('baaaacc', 2)); // 6
+console.log(longestSubStr('aaaabcc', 2)); // 6
+console.log(longestSubStr('abbaacc', 2)); // 5
+console.log(longestSubStr('bbaaacc', 2)); // 5
+console.log(longestSubStr('aaabbcc', 2)); // 5
+
+console.log(longestSubStr('aabccbb', 2)); // 5
+console.log(longestSubStr('abbcb', 1)); // 4
+console.log(longestSubStr('abccde', 1)); // 3
+
+console.log(longestSubStr('', 1)); // 0
+console.log(longestSubStr('abccde', -1)); // -1
+
+
+
