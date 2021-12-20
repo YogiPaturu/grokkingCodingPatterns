@@ -87,8 +87,8 @@ console.log(mergeInterval([[1,4], [5,6], [8, 9]])) // [[1,4], [5,6], [8,9]]
 console.log(mergeInterval([[1,5], [5,6], [6, 9]])) // [[1, 9]]
 console.log(mergeInterval([[1,4], [3,6], [5,9]])) // [[1, 9]]
 
-console.log(mergeInterval({0:1, 1:2})) // []
-console.log(mergeInterval([[]])) // []
+console.log(mergeInterval({0:1, 1:2})) // -1
+console.log(mergeInterval([[]])) // [[]]
 console.log(mergeInterval([[1, 2]])) // []
 
 
