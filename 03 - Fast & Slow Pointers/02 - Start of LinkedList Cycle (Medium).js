@@ -5,6 +5,9 @@ fast/slow pointers
 find the length of the cycle
 start a pointer length of the cycle ahead of the other pointer from the start
 increment until they intersect, which will be the beginning of the cycle
+
+Time - O(N + N) ≈ O(N) such that N is the length of LL 
+Space - O(1)
 */
 
 class Node{
@@ -81,4 +84,11 @@ head.next.next = new Node(3);
 head.next.next.next = new Node(4);
 head.next.next.next.next = new Node(5);
 head.next.next.next.next.next = head.next.next.next.next;
+console.log(startCycle(head)); // head.head.next.next.next.next (5)
+
+head.next = new Node(2);
+head.next.next = new Node(3);
+head.next.next.next = new Node(4);
+head.next.next.next.next = new Node(5);
+head.next.next.next.next.next = new Node(6);
 console.log(startCycle(head)); // head.head.next.next.next.next (5)
