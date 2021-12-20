@@ -5,6 +5,9 @@ Fast/slow pointers
 
 increment the fast by 2 and slow by 1
 if they meet, there's a cycle
+
+Time - O(N)/Linear
+Space - O(1)
  */
 
 class Node{
@@ -40,3 +43,6 @@ console.log((hasCycle(head))); // true
 
 head.next.next.next.next.next.next = head.next.next.next
 console.log((hasCycle(head))); // true
+
+
+
