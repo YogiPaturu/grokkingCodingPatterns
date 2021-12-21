@@ -36,22 +36,24 @@ const insertInterval = (intervals, newInterval) =>{
 
     const merged = [];
     let i = 0;
-    while(i < intervals.length && intervals[i][1] < newInterval[0]){
+
+    while(i < intervals.length && intervals[i][1] < newInterval[0]){ // add ones that come before newInterval (curr end < newInterval start)
         merged.push(intervals[i])
         i++;
-        i
     }
-    while(i < intervals.length && intervals[i][0] < newInterval[1]){
+
+    while(i < intervals.length && intervals[i][0] < newInterval[1]){ // merge the ones that overlap (curr start < newInterval end)
         newInterval[0] = Math.min(intervals[i][0], newInterval[0])
         newInterval[1] = Math.max(intervals[i][1], newInterval[1])
         i++;
-        i
     }
     merged.push(newInterval)
-    while(i < intervals.length){
+
+    while(i < intervals.length){ // add the rest of them
         merged.push(intervals[i])
         i++;
     }
+
     return merged;
 }
 
