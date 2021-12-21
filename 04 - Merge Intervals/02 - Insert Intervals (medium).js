@@ -18,52 +18,46 @@ Input: Intervals=[[2,3],[5,7]], New Interval=[1,4]
 Output: [[1,4], [5,7]]
 Explanation: After insertion, since [1,4] overlaps with [2,3], we merged them into one [1,4].
 
+add all the ones that come before newInterval, such that currInterval's end < newInterval start
+if there is an overlap, insert such that newInterval start is the min of the two and the end is the max of the two
 push interval
-sort array
-start = intervals[0][0]
-end = intervals[0][1]
-loop through array
-    if(curr[0] <= end) reassign end to be curr[1]
-    else
-        push to merged
-        start = curr[0]
-        end = curr[1]
+push the remaining intervals
 
-push last interval
-return interval
+Time - O(N)
+Space - O(N)
 */
 
 const insertInterval = (intervals, newInterval) =>{
-    if(!Array.isArray(intervals) && Array.isArray(newInterval)) return newInterval;
+    if(!Array.isArray(intervals) && Array.isArray(newInterval)) return [newInterval];
     if(Array.isArray(intervals) && !Array.isArray(newInterval)) return intervals;
     if(!Array.isArray(intervals) && !Array.isArray(newInterval)) return -1;
-    if(!intervals[0].length && newInterval.length) return newInterval;
+    if(!intervals[0].length && newInterval.length) return [newInterval];
     if(intervals.length && !newInterval.length) return intervals;
 
-    intervals.push(newInterval);
-    intervals.sort((a,b) => a[0] - b[0]);
-
     const merged = [];
-    let start = intervals[0][0],
-    end = intervals[0][1];
-
-    for(const currInterval of intervals){
-        if(currInterval[0] <= end) end = Math.max(end, currInterval[1]);
-        else {
-            merged.push([start, end]);
-            start = currInterval[0];
-            end = currInterval[1];
-        }
+    let i = 0;
+    while(i < intervals.length && intervals[i][1] < newInterval[0]){
+        merged.push(intervals[i])
+        i++;
+        i
     }
-
-    merged.push([start, end]);
-
+    while(i < intervals.length && intervals[i][0] < newInterval[1]){
+        newInterval[0] = Math.min(intervals[i][0], newInterval[0])
+        newInterval[1] = Math.max(intervals[i][1], newInterval[1])
+        i++;
+        i
+    }
+    merged.push(newInterval)
+    while(i < intervals.length){
+        merged.push(intervals[i])
+        i++;
+    }
     return merged;
 }
 
-console.log(insertInterval([[1,4], [3,6]], [5,7])); // [[1,7]]
-console.log(insertInterval([[1,4], [4,5]], [5,7])); // [[1,7]]
-console.log(insertInterval([[1,4], [4,5]], [2,3])); // [[1,5]]
+console.log(insertInterval([[1,4], [5,6]], [5,7])); // [[1,7]]
+console.log(insertInterval([[1,4], [5,5]], [5,7])); // [[1,7]]
+console.log(insertInterval([[1,4], [6,7]], [9,10])); // [[1,5]]
 
 console.log(insertInterval([[1,3], [5,7], [8,12]], [4,6])); // [[1,3], [4,7], [8,12]]
 console.log(insertInterval([[1,3], [5,7], [8,12]], [4,10])); // [[1,3], [4,12]]
