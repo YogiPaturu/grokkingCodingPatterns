@@ -39,7 +39,7 @@ const cyclicSort = (arr) => {
     while (i < arr.length){
         j = arr[i] - 1;
 
-        if(arr[i] !== arr[arr[i] - 1]){ // element 1 must be in index 0, element 2 must be in index 1, so on..
+        if(arr[i] !== arr[j]){ // element 1 must be in index 0, element 2 must be in index 1, so on..
             [arr[i], arr[j]] = [arr[j], arr[i]] // swap with appropriate index (e.g., element 3 swap with index 2)
         }
         else i++;
