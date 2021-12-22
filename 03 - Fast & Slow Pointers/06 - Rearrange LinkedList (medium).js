@@ -22,10 +22,6 @@ class Node{
     }
 }
 
-const rearrage = (head) => {
-    reverse(midPoint(head))
-}
-
 const midPoint = (head) => {
     let slow = head,
     fast = head;
@@ -39,16 +35,43 @@ const midPoint = (head) => {
 }
 
 const reverse = (head) => {
-    let prev = null,
-    curr = head,
-    next = curr.next;
+    let prev = null;
+    next = head.next;
   
     while(curr !== null){
-        next = curr.next;
-        curr.next = prev;
-        prev = curr;
-        curr = curr.next;
+        next = head.next;
+        head.next = prev;
+        prev = head;
+        head = next;
     }
 
     return prev;
 }
+
+const rearrange = (head) => {
+    if(head === null || head.next === null) return ;
+
+    currSecondHalf = reverse(midPoint(head))
+    currFirstHalf = head;
+
+    while(currFirstHalf !== null && currSecondHalf !== null){
+        temp = currFirstHalf.next;
+        currFirstHalf.next = currSecondHalf;
+        currFirstHalf = temp;
+
+        temp = currSecondHalf.next;
+        currSecondHalf.next = currFirstHalf;
+        currSecondHalf = temp;
+    }
+
+    if(currFirstHalf !== null) currFirstHalf.next = null;
+
+}
+
+let head = new Node(1);
+head.next = new Node(2);
+head.next.next = new Node(3);
+head.next.next.next = new Node(4);
+rearrange(head)
+head
+
