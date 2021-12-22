@@ -1,0 +1,3 @@
+/*
+Return the triplets from the previous problem
+*/
