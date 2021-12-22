@@ -26,7 +26,7 @@ Space - O(1)
 class Node{
     constructor(value, next = null){
         this.value = value;
-        this.next = null;
+        this.next = next;
     }
 }
 

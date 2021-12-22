@@ -10,7 +10,7 @@ at the intersection point, let the slow pointer continue until it hits that same
 class Node{
     constructor(value, next = null){
         this.value = value;
-        this.next = null;
+        this.next = next;
     }
 }
 
