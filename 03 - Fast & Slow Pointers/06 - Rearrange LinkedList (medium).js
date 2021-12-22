@@ -22,56 +22,101 @@ class Node{
     }
 }
 
-const midPoint = (head) => {
-    let slow = head,
-    fast = head;
+// const midPoint = (head) => {
+//     let slow = head,
+//     fast = head;
 
-    while(fast !== null && fast.next !== null){
-        slow = slow.next;
-        fast = fast.next.next;
-    }
+//     while(fast !== null && fast.next !== null){
+//         slow = slow.next;
+//         fast = fast.next.next;
+//     }
 
-    return slow;
-}
+//     return slow;
+// }
 
-const reverse = (head) => {
-    let prev = null;
-    next = head.next;
+// const reverse = (head) => {
+//     let prev = null;
+//     next = head.next;
   
-    while(curr !== null){
-        next = head.next;
-        head.next = prev;
-        prev = head;
-        head = next;
-    }
+//     while(curr !== null){
+//         next = head.next;
+//         head.next = prev;
+//         prev = head;
+//         head = next;
+//     }
 
+//     return prev;
+// }
+
+// const rearrange = (head) => {
+//     if(head === null || head.next === null) return ;
+
+//     currSecondHalf = reverse(midPoint(head))
+//     currFirstHalf = head;
+
+//     while(currFirstHalf !== null && currSecondHalf !== null){
+//         temp = currFirstHalf.next;
+//         currFirstHalf.next = currSecondHalf;
+//         currFirstHalf = temp;
+
+//         temp = currSecondHalf.next;
+//         currSecondHalf.next = currFirstHalf;
+//         currSecondHalf = temp;
+//     }
+
+//     if(currFirstHalf !== null) currFirstHalf.next = null;
+
+// }
+
+function reorder(head) {
+    if (head === null || head.next === null) {
+      return;
+    }
+  
+    // find middle of the LinkedList
+    let slow = head,
+      fast = head;
+    while (fast !== null && fast.next !== null) {
+      slow = slow.next;
+      fast = fast.next.next;
+    }
+  
+    // slow is now pointing to the middle node
+    headSecondHalf = reverse(slow); // reverse the second half
+    headFirstHalf = head;
+  
+    // rearrange to produce the LinkedList in the required order
+    while (headFirstHalf !== null && headSecondHalf !== null) {
+      temp = headFirstHalf.next;
+      headFirstHalf.next = headSecondHalf;
+      headFirstHalf = temp;
+  
+      temp = headSecondHalf.next;
+      headSecondHalf.next = headFirstHalf;
+      headSecondHalf = temp;
+    }
+    // set the next of the last node to 'null'
+    if (headFirstHalf !== null) {
+      headFirstHalf.next = null;
+    }
+  }
+  
+  
+  function reverse(head) {
+    let prev = null;
+    while (head !== null) {
+      next = head.next;
+      head.next = prev;
+      prev = head;
+      head = next;
+    }
     return prev;
-}
-
-const rearrange = (head) => {
-    if(head === null || head.next === null) return ;
-
-    currSecondHalf = reverse(midPoint(head))
-    currFirstHalf = head;
-
-    while(currFirstHalf !== null && currSecondHalf !== null){
-        temp = currFirstHalf.next;
-        currFirstHalf.next = currSecondHalf;
-        currFirstHalf = temp;
-
-        temp = currSecondHalf.next;
-        currSecondHalf.next = currFirstHalf;
-        currSecondHalf = temp;
-    }
-
-    if(currFirstHalf !== null) currFirstHalf.next = null;
-
-}
+  }
 
 let head = new Node(1);
 head.next = new Node(2);
 head.next.next = new Node(3);
 head.next.next.next = new Node(4);
-rearrange(head)
+reorder(head)
 head
 
