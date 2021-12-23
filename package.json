@@ -1,5 +1,8 @@
 {
   "dependencies": {
     "collections": "^5.1.12"
+  },
+  "devDependencies": {
+    "@types/collections": "^5.1.2"
   }
 }
