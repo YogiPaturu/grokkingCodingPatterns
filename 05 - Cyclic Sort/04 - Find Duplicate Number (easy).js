@@ -24,6 +24,9 @@ Cyclic sort through array
 Loop through array
     if the index and value don't equal each other, return value
 If no duplicates, return -1
+
+Time - O(N + N) = O(2N) ≈ O(N) such that N is the length of the array
+Space = O(1)
  */
 
 const findDuplicate = (arr) => {
@@ -33,16 +36,16 @@ const findDuplicate = (arr) => {
     let j = 0,
     i = 0;
 
-    // sort
+    // sort and return duplicate
     while(i < arr.length){
-        j = arr[i] - 1;
-        if(arr[i] !== arr[j]) [arr[i], arr[j]] = [arr[j], arr[i]];
-        else i++;
-    }
-
-    // return duplicate
-    for(let i = 0; i < arr.length; i++){
-        if(arr[i] !== i + 1) return arr[i];
+        if(arr[i] !== i+ 1){
+            j = arr[i] - 1;
+            if(arr[i] !== arr[j]) [arr[i], arr[j]] = [arr[j], arr[i]];
+            else return arr[i];
+        }
+        else {
+            i++;
+        }
     }
 
     return -1;
