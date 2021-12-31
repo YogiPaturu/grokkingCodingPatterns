@@ -41,6 +41,7 @@ const kWayMerge = (arr) => {
         }
         if(curr.next !== null) minHeap.push(curr.next);
     }
+    
     return head;
 }
 
