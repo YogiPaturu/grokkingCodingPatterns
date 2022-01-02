@@ -62,7 +62,7 @@ const topSort = (vertices, edges) => {
         graph[parent].push(child);
         inDegree[child]++;
     }
-
+    
     // find sources
     const sources = new Deque();
     for(let i = 0; i < inDegree.length; i++){
