@@ -53,7 +53,7 @@ move a sliding window, length of the pattern, keep track of frequency of the cha
 if frequency of chars in pattern and window are equivalent, return true
 after going through the whole string, return false
 
-Time - O(N) - window can be length of string
+Time - O(N + M) - loop through pattern and then string
 Space - O(N) - frequency map length of string
 
 Pseudo:
@@ -71,6 +71,8 @@ loop through string with sliding window, such that the end increments each itera
             add character at right to frequency map, such that if that character isn't there add it, or if it is there, increment its value
     compare the two frequency maps to see if they are equal. if so, return true
 return false
+
+
 */
 
 const permString = (string, pattern) => {
