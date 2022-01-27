@@ -1,16 +1,28 @@
-const dfsIterativePreorder = (root) => {
-    const stack = [],
-    traversed = [];
-    let curr = root;
+// const stack = [],
+// traversed = [];
+// let curr = root;
 
-    while(stack.length || curr){
-        while(curr) {
-            traversed.push(curr.val)
-            stack.push(curr);
-            curr = curr.left;
-        }
-        curr = stack.pop()
-        curr = curr.right;        
+// while(stack.length || curr){
+//     while(curr) {
+//         traversed.push(curr.val)
+//         stack.push(curr);
+//         curr = curr.left;
+//     }
+//     curr = stack.pop()
+//     curr = curr.right;        
+// }
+
+// return traversed;
+const dfsIterativePreorder = (root) => {
+    const stack = [root],
+    traversed = [];
+    let curr;
+
+    while(stack.length){
+        curr = stack.pop();
+        traversed.push(curr.val)
+        if(curr.right) stack.push(curr.right);
+        if(curr.left) stack.push(curr.left);
     }
 
     return traversed;
