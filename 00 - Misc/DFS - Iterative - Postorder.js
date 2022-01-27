@@ -21,6 +21,8 @@
 
 //     return traversed;
 // }
+
+// 1 stack
 const dfsIterativePostorder = (root) => {
     if (!root) return []
     
