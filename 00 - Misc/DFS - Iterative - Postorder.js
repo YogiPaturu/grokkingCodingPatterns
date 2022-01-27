@@ -1,30 +1,63 @@
 // 2 stacks
-const dfsIterativePostorder = (root) => {
-    if (root == null) return;
+// const dfsIterativePostorder = (root) => {
+//     if (root == null) return;
     
-    const s1 = [root],
-    s2 = [],
+//     const s1 = [root],
+//     s2 = [],
+//     traversed = [];
+//     let curr;
+
+//     while (s1.length > 0) {
+//         curr = s1.pop();
+//         if (curr.left) s1.push(curr.left);
+//         if (curr.right) s1.push(curr.right);
+//         s2.push(curr);
+//     }
+
+//     while (s2.length) {
+//         curr = s2.pop();
+//         traversed.push(curr.val);
+//     }
+
+//     return traversed;
+// }
+const dfsIterativePostorder = (root) => {
+    if (!root) return []
+    
+    const stack = [root],
     traversed = [];
-    let curr;
 
-    while (s1.length > 0) {
-        curr = s1.pop();
-        if (curr.left) s1.push(curr.left);
-        if (curr.right) s1.push(curr.right);
-        s2.push(curr);
+    let prev = null,
+    current;
+    while (stack.length){
+        current = stack[stack.length-1];
+        if (!prev || prev.left == current ||prev.right == current){
+            if (current.left) stack.push(current.left);
+            else if (current.right) stack.push(current.right);
+            else {
+                stack.pop();
+                traversed.push(current.val);
+            }
+        }
+        else if (current.left == prev){
+            if (current.right) stack.push(current.right);
+            else {
+                stack.pop();
+                traversed.push(current.val);
+            }
+        }
+        else if (current.right == prev){
+            stack.pop();
+            traversed.push(current.val);
+        }
+        prev = current;
     }
-
-    while (s2.length) {
-        curr = s2.pop();
-        traversed.push(curr.val);
-    }
-
     return traversed;
 }
-
+    
 class Node{
-    constructor(val, left = null, right = null){
-        this.val = val;
+        constructor(val, left = null, right = null){
+            this.val = val;
         this.left = left;
         this.right = right;
     }
