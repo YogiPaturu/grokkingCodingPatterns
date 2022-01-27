@@ -33,8 +33,8 @@ bst.right.left = new Node(31);
 bst.right.right = new Node(42);
 bst
 
-const traversedBST = e(bst);
-const expectedArr = [10, 19, 14, 31, 42, 35, 27];
+const traversedBST = dfsIterateInOrder(bst);
+const expectedArr = [10,14,19,27,31,35,42];
 traversedBST
 expectedArr
 console.assert((JSON.stringify(traversedBST) === JSON.stringify(expectedArr)), 'Aint it cheif');
