@@ -1,16 +1,22 @@
+// 2 stacks
 const dfsIterativePostorder = (root) => {
-    const stack = [],
+    if (root == null) return;
+    
+    const s1 = [root],
+    s2 = [],
     traversed = [];
-    let curr = root;
+    let curr;
 
-    while(stack.length || curr){
-        while(curr) {
-            traversed.push(curr.val)
-            stack.push(curr);
-            curr = curr.right;        
-        }
-        curr = stack.pop()
-        curr = curr.left;
+    while (s1.length > 0) {
+        curr = s1.pop();
+        if (curr.left) s1.push(curr.left);
+        if (curr.right) s1.push(curr.right);
+        s2.push(curr);
+    }
+
+    while (s2.length) {
+        curr = s2.pop();
+        traversed.push(curr.val);
     }
 
     return traversed;
