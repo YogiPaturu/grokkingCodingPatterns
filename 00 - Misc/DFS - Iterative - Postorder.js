@@ -22,40 +22,56 @@
 //     return traversed;
 // }
 
-// 1 stack
-const dfsIterativePostorder = (root) => {
-    if (!root) return []
-    
-    const stack = [root],
-    traversed = [];
+// 2 stack
+const dfsIterativePostorder = (root) => {  
+    const s1 = [root],
+    s2 = [];
+    let curr;
 
-    let prev = null,
-    current;
-    while (stack.length){
-        current = stack[stack.length-1];
-        if (!prev || prev.left == current ||prev.right == current){
-            if (current.left) stack.push(current.left);
-            else if (current.right) stack.push(current.right);
-            else {
-                stack.pop();
-                traversed.push(current.val);
-            }
-        }
-        else if (current.left == prev){
-            if (current.right) stack.push(current.right);
-            else {
-                stack.pop();
-                traversed.push(current.val);
-            }
-        }
-        else if (current.right == prev){
-            stack.pop();
-            traversed.push(current.val);
-        }
-        prev = current;
+    while (s1.length) {
+        curr = s1.pop();
+        if (curr.left) s1.push(curr.left);
+        if (curr.right) s1.push(curr.right);
+        s2.push(curr.val);
     }
-    return traversed;
+
+    return s2.reverse();
 }
+
+// 1 stack
+// const dfsIterativePostorder = (root) => {
+//     if (!root) return []
+    
+//     const stack = [root],
+//     traversed = [];
+
+//     let prev = null,
+//     current;
+//     while (stack.length){
+//         current = stack[stack.length-1];
+//         if (!prev || prev.left == current ||prev.right == current){
+//             if (current.left) stack.push(current.left);
+//             else if (current.right) stack.push(current.right);
+//             else {
+//                 stack.pop();
+//                 traversed.push(current.val);
+//             }
+//         }
+//         else if (current.left == prev){
+//             if (current.right) stack.push(current.right);
+//             else {
+//                 stack.pop();
+//                 traversed.push(current.val);
+//             }
+//         }
+//         else if (current.right == prev){
+//             stack.pop();
+//             traversed.push(current.val);
+//         }
+//         prev = current;
+//     }
+//     return traversed;
+// }
     
 class Node{
         constructor(val, left = null, right = null){
