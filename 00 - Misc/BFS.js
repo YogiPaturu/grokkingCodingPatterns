@@ -38,4 +38,6 @@ bst.right = new Node(35);
 bst.right.left = new Node(31);
 bst.right.right = new Node(42);
 
-console.log(bfs(bst));
+const output = bfs(bst),
+expected = [27, 14, 35, 10, 19, 31, 42]
+console.assert(JSON.stringify(output) === JSON.stringify(expected), 'Aint it cheif');
